@@ -7,7 +7,7 @@ describe('Queue', () => {
 
   beforeEach(() => {
     queue = new Queue();
-  }); 
+  });
 
   describe('Node Constructor', () => {
     it('Should exist', () => {
@@ -24,7 +24,7 @@ describe('Queue', () => {
       expect(node).to.have.property('next');
     });
   });
-  
+
   describe('Queue Constructor', () => {
     it('Should exist', () => {
       expect(Queue).to.exist;
@@ -33,7 +33,7 @@ describe('Queue', () => {
     it('Should be a function (ES6 classes are "special functions")', () => {
       expect(Queue).to.be.a('function');
     });
-    
+
     it('Should have front, back, and length properties', () => {
       expect(queue).to.have.property('front');
       expect(queue).to.have.property('back');
@@ -42,7 +42,7 @@ describe('Queue', () => {
   });
 
   describe('Queue Behavior', () => {
-    it('Should remove the least recently added of three nodes (LIFO)', () => {
+    it('Should remove the least recently added of three nodes (FIFO)', () => {
       queue.enqueue('A');
       queue.enqueue('B');
       queue.enqueue('C');
@@ -119,15 +119,15 @@ describe('Queue', () => {
     describe('dequeue', () => {
       it('Should not accept any input parameters', () => {
         expect(queue.dequeue.length).to.equal(0);
-      });      
+      });
 
       it('Should not throw an error when calling dequeue on an empty queue', () => {
         expect(function() {queue.dequeue()}).to.not.throw();
-      });      
+      });
 
       it('Should return null if called on an empty queue', () => {
         expect(queue.dequeue()).to.be.equal(null);
-      });      
+      });
 
       it('Should reassign the front and back pointers to null if there is only one node in the queue', () => {
         queue.enqueue('A');
@@ -136,7 +136,7 @@ describe('Queue', () => {
         queue.dequeue();
         expect(queue.front).to.equal(null);
         expect(queue.back).to.equal(null);
-      });      
+      });
 
       it('Should reassign the front pointer to the node just behind the front node for queues of size two or greater', () => {
         queue.enqueue('A');
@@ -147,7 +147,7 @@ describe('Queue', () => {
         expect(queue.front.value).to.equal('B');
         queue.dequeue();
         expect(queue.front.value).to.equal('C');
-      });      
+      });
 
       it('Should decrement the queue\'s length by one each time a node is removed from the queue', () => {
         queue.enqueue('A');
@@ -158,21 +158,21 @@ describe('Queue', () => {
         expect(queue.length).to.equal(2);
         queue.dequeue();
         expect(queue.length).to.equal(1);
-      });      
+      });
 
       it('Should return the value of the node removed from the queue', () => {
         queue.enqueue('A');
         queue.enqueue('B');
         expect(queue.dequeue()).to.equal('A');
         expect(queue.dequeue()).to.equal('B');
-      });            
+      });
     });
 
     describe('size', () => {
       it('Should return a size of 0 for a new queue', () => {
         expect(queue.size()).to.equal(0);
       });
-      
+
       it('Should return a size of 2 after two nodes are added to the queue', () => {
         queue.enqueue('A');
         queue.enqueue('B');
