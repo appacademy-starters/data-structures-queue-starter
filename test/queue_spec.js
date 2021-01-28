@@ -39,23 +39,11 @@ describe('Queue', () => {
       expect(queue).to.have.property('back');
       expect(queue).to.have.property('length');
     });
-  });
 
-  describe('Queue Behavior', () => {
-    it('Should remove the least recently added of three nodes (FIFO)', () => {
-      queue.enqueue('A');
-      queue.enqueue('B');
-      queue.enqueue('C');
-      expect(queue.dequeue()).to.equal('A');
-    });
-
-    it('Should remove the oldest node after newer nodes have already been added and others have been removed', () => {
-      queue.enqueue('A');
-      queue.enqueue('B');
-      queue.enqueue('C');
-      queue.enqueue('D');
-      queue.dequeue()
-      expect(queue.dequeue()).to.equal('B');
+    it('Should not implement an Array to store values', () => {
+      for (let property in queue) {
+        expect(Array.isArray(queue[property])).to.equal(false);
+      }
     });
   });
 
@@ -82,7 +70,7 @@ describe('Queue', () => {
         expect(queue.back.value).to.equal('A');
       });
 
-      it('Should reassign only the front pointer when new nodes are added to the back of the queue of size one or greater', () => {
+      it('Should reassign only the back pointer when new nodes are added to the back of the queue of size one or greater', () => {
         queue.enqueue('A');
         queue.enqueue('B');
         expect(queue.front.value).to.equal('A');
@@ -122,7 +110,7 @@ describe('Queue', () => {
       });
 
       it('Should not throw an error when calling dequeue on an empty queue', () => {
-        expect(function() {queue.dequeue()}).to.not.throw();
+        expect(function () { queue.dequeue() }).to.not.throw();
       });
 
       it('Should return null if called on an empty queue', () => {
@@ -192,6 +180,25 @@ describe('Queue', () => {
         queue.dequeue();
         expect(queue.size()).to.equal(0);
       });
+    });
+
+  });
+
+  describe('Queue Behavior', () => {
+    it('Should remove the least recently added of three nodes (FIFO)', () => {
+      queue.enqueue('A');
+      queue.enqueue('B');
+      queue.enqueue('C');
+      expect(queue.dequeue()).to.equal('A');
+    });
+
+    it('Should remove the oldest node after newer nodes have already been added and others have been removed', () => {
+      queue.enqueue('A');
+      queue.enqueue('B');
+      queue.enqueue('C');
+      queue.enqueue('D');
+      queue.dequeue()
+      expect(queue.dequeue()).to.equal('B');
     });
   });
 });
